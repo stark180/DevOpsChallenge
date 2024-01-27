@@ -19,14 +19,19 @@ jobs:
         docker build -t backend-image:latest ./backend
         docker build -t frontend-image:latest ./frontend
 
-    - name: Install Dependencies and Run Tests (Backend)
-      working-directory: backend
-      run: |
-        npm install
-        npm test
-
+    - name: Install Mocha
+      run: npm install -g mocha
+      if: success()  # Only run this step if previous steps were successful
+      
     - name: Install Dependencies and Run Tests (Frontend)
       working-directory: frontend
+      run: |
+        npm install
+        mocha
+        npm test
+
+    - name: Install Dependencies and Run Tests (Backend)
+      working-directory: backend
       run: |
         npm install
         npm test
