@@ -19,15 +19,15 @@ jobs:
         docker build -t backend-image:latest ./backend
         docker build -t frontend-image:latest ./frontend
 
-    - name: Run Tests
+    - name: Install Dependencies and Run Tests (Backend)
+      working-directory: backend
       run: |
-        # For backend tests (assuming Mocha is used)
-        cd backend
         npm install
         npm test
 
-        # For frontend tests (assuming Mocha is used)
-        cd ../frontend
+    - name: Install Dependencies and Run Tests (Frontend)
+      working-directory: frontend
+      run: |
         npm install
         npm test
 
